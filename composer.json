@@ -1,0 +1,20 @@
+{
+  "name": "poznet/imageoptimbundle",
+  "description": "Symfony Bundle -  Wrapper for  tinyjpg",
+  "keywords": ["symfony","image","image shrinking","tinify","tinyjpg","tinypng","Image Optimization"],
+  "homepage": "https://github.com/poznet/imageoptimbundle",
+  "license": "GPL-3.0",
+
+  "require": {
+    "php": ">=5.3",
+    "tinify/tinify": "^1.5"
+   },
+  "autoload": {
+    "psr-0": {
+      "Poznet\\ImageOptimBundle": "src"
+    }
+
+
+  }
+
+}

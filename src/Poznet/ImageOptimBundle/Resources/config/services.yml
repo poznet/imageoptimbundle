@@ -1,0 +1,11 @@
+
+services:
+
+  image_optim_event_listener:
+      class: Poznet\ImageOptimBundle\EventListener\ImageEventListener
+      arguments: ["@doctrine.orm.entity_manager","%tinifyAPI%"]
+      tags:
+          - {name: kernel.event_listener, event: image.add, method: onAdd}
+          - {name: kernel.event_listener, event: image.minify, method: onMinify}
+
+
