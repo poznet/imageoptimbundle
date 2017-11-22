@@ -7,7 +7,7 @@
 
   "require": {
     "php": ">=5.3",
-    "tinify/tinify": "^1.5"
+    "tinify/tinify": "^1.1.1"
    },
   "autoload": {
     "psr-0": {
