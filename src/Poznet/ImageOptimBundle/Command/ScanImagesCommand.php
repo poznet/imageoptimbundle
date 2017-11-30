@@ -23,11 +23,15 @@ class ScanImagesCommand extends ContainerAwareCommand
     {
         $this
             ->setName('image:optim:scan')
-            ->setDescription('Searches for  images ');
+            ->setDescription('Searches for  images ')
+            ->addArgument('count', InputArgument::OPTIONAL, 'How many dirs  you want to check 500 is default');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $limit = 500;
+        if ($input->hasArgument('count'))
+            $limit = $input->getArgument('count');
         $dirs = $this->getContainer()->getParameter('imageoptim_dirs');
         $excluded = $this->getContainer()->getParameter('imageoptim_excluded');
         $root = $this->getContainer()->get("kernel")->getRootDir();
@@ -38,11 +42,18 @@ class ScanImagesCommand extends ContainerAwareCommand
         foreach ($excluded as $ex)
             $finder->exclude($ex);
 
-
+        if ($input->hasArgument('count')) {
+            $finder = iterator_to_array($finder);
+            shuffle($finder);
+        }
+        $i=1;
         foreach ($finder as $file) {
+            $i++;
             $output->writeln($file->getPathname());
             $event = new ImageEvent($file);
             $this->getContainer()->get('event_dispatcher')->dispatch('image.add', $event);
+            if(($i>$limit)&&$input->hasArgument('count'))
+                break;
         }
     }
 }
